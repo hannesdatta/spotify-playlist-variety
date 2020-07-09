@@ -7,7 +7,7 @@ initiation: src/data-preparation/init.py
 parsing_alldata: gen/data-preparation/input/all-playlists.csv gen/data-preparation/input/playlist-followers.csv gen/data-preparation/input/playlist-placements.csv gen/data-preparation/input/playlist-placements-positions.csv
 prep_aggregate: gen/data-preparation/temp/playlists.Rda gen/data-preparation/temp/placements.Rda gen/data-preparation/temp/followers.Rda gen/data-preparation/temp/dt.Rda gen/data-preparation/temp/train.Rda gen/data-preparation/temp/test.Rda
 positions: gen/data-preparation/temp/positions.Rda gen/data-preparation/temp/ts_dt.Rda gen/data-preparation/temp/ts_train.Rda gen/data-preparation/temp/ts_test.Rda
-exploration: gen/analysis/output/general_descriptives.txt gen/analysis/output/aggregated_descriptives.txt gen/analysis/temp/date_aggregated.Rda gen/analysis/temp/date_ts_aggregated.Rda
+exploration: gen/analysis/output/general_descriptives.txt gen/analysis/output/aggregated_descriptives.txt gen/analysis/temp/date_aggregated.Rda gen/analysis/temp/date_ts_aggregated.Rda gen/analysis/output/Rplots.pdf
 models: gen/analysis/output/model_output.txt 
 
 
@@ -24,8 +24,9 @@ gen/data-preparation/temp/positions.Rda gen/data-preparation/temp/ts_dt.Rda gen/
 	Rscript "src/data-preparation/2_positions.R"
 
 # exploration
-gen/analysis/output/general_descriptives.txt gen/analysis/output/aggregated_descriptives.txt gen/analysis/temp/date_aggregated.Rda gen/analysis/temp/date_ts_aggregated.Rda: src/analysis/3_exploration.R gen/data-preparation/temp/playlists.Rda gen/data-preparation/temp/placements.Rda gen/data-preparation/temp/followers.Rda gen/data-preparation/temp/train.Rda gen/data-preparation/temp/ts_train.Rda
+gen/analysis/output/general_descriptives.txt gen/analysis/output/aggregated_descriptives.txt gen/analysis/temp/date_aggregated.Rda gen/analysis/temp/date_ts_aggregated.Rda gen/analysis/output/Rplots.pdf: src/analysis/3_exploration.R gen/data-preparation/temp/playlists.Rda gen/data-preparation/temp/placements.Rda gen/data-preparation/temp/followers.Rda gen/data-preparation/temp/train.Rda gen/data-preparation/temp/ts_train.Rda
 	Rscript "src/analysis/3_exploration.R"
+	mv Rplots.pdf "gen/analysis/output/Rplots.pdf"
 
 # models 
 gen/analysis/output/model_output.txt : src/analysis/4_models.R gen/data-preparation/temp/train.Rda gen/data-preparation/temp/test.Rda gen/data-preparation/temp/ts_train.Rda gen/data-preparation/temp/ts_test.Rda

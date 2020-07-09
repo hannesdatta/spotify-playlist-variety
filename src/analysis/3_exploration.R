@@ -68,13 +68,14 @@ playlists = playlists[order(playlist_position), ]
 playlists$share = 100*cumsum(playlists$followers)/sum(playlists$followers, na.rm = TRUE)
 points = c(10, 20, 50, 100, 200, 500, 1000, 5000, 10000, 15000)
 subset_share = playlists[playlist_position %in% points, ]
-subset_share %>% ggplot(aes(x = playlist_position, y = share)) +
-  geom_point() +
-  ylab("Cumulative share of followers (%)") +
-  xlab("Position") +
-  xlim(0, 16000) +
-  geom_text(aes(label = paste0("(",playlist_position, ",", round(share, 0), ")"), vjust = -0.5), size = 3) +
-  theme_light()
+# subset_share %>% ggplot(aes(x = playlist_position, y = share)) +
+#   geom_point() +
+#   ylab("Cumulative share of followers (%)") +
+#   xlab("Position") +
+#   xlim(0, 16000) +
+#   geom_text(aes(label = paste0("(",playlist_position, ",", round(share, 0), ")"), vjust = -0.5), size = 3) +
+#   theme_light()
+
 
 setorderv(playlists, 'followers', order=-1L)
 playlists[followers>0, cum:=cumsum(followers)/sum(followers)]
@@ -85,7 +86,7 @@ with(dt_fol, plot(perc, cum,type='l', xlab = 'Top x% playlists, ordered by follo
 
 cutoff = .9
 dt_set = dt_fol[cum<=cutoff]
-ggplot(dt_set, aes(x=N, y =cum)) + geom_line() + xlab('Top X playlists, ordered by followers') + ylab('Cumulative share of followers') + theme_light() + scale_y_continuous(labels = function(x)paste0(x*100, "%"))
+# ggplot(dt_set, aes(x=N, y =cum)) + geom_line() + xlab('Top X playlists, ordered by followers') + ylab('Cumulative share of followers') + theme_light() + scale_y_continuous(labels = function(x)paste0(x*100, "%"))
 
 # Followers by curator_type
 tmp = dt_set[, list(sum_followers=sum(followers)),by=c('curator_type')]
